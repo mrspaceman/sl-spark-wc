@@ -60,6 +60,26 @@ public class WordCount {
         }
     }
 
+    void runProducer(final String filename) throws Exception {
+        final Producer<Long, String> producer = createProducer();
+        long time = System.currentTimeMillis();
+        index = 0;
+
+        try (Stream<String> stream = Files.lines(Paths.get(filename))) {
+            Consumer<String> consumerNames = line -> {
+                try {
+                    RecordMetadata metadata = producer.send(new ProducerRecord<>(TOPIC, index++, line.trim())).get();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            };
+            stream.forEach(consumerNames);
+
+        } finally {
+            producer.close();
+        }
+    }
+
     public void runWordCount(String filename)
     {
         JavaRDD<String> textFile = sc.textFile("hdfs://...");
