@@ -34,5 +34,4 @@ public class WordCount {
         counts.saveAsTextFile(filename + ".wordcounts");
     }
 
-
 }
