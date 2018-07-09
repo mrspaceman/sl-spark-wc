@@ -1,4 +1,7 @@
-# sl-spark-wc
+# Apache Spark Word Count Example
 
-Scott Logic wordcount example for Apache Spark
+
+Todo:
+
+  [ ] Add script to execute job
 
