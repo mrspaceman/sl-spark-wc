@@ -6,6 +6,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple2;
 
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class WordCount {
@@ -34,7 +35,7 @@ public class WordCount {
                 .mapToPair(word -> new Tuple2<>(word, 1))
                 .reduceByKey((a, b) -> a + b);
 
-        counts.saveAsTextFile(filename + ".wordcounts");
+        counts.saveAsTextFile(Paths.get(filename).getFileName() + ".wordcounts");
     }
 
 }
